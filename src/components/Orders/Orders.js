@@ -32,6 +32,7 @@ class Orders extends Component {
               );
             })}
           </ul>
+          <p>Order total: ${order.orderTotal}</p>
           <button onClick={() => this.deleteOrder(order.id)}>delete</button>
         </div>
       );
