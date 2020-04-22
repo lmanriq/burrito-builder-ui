@@ -38,21 +38,24 @@ class OrderForm extends Component {
       )
     });
 
+    const { name, ingredients } = this.state;
+    const isDisabled = ingredients.length === 0 ? true : false;
+
     return (
       <form>
         <input
           type='text'
           placeholder='Name'
           name='name'
-          value={this.state.name}
+          value={name}
           onChange={e => this.handleNameChange(e)}
         />
 
         { ingredientButtons }
 
-        <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
+        <p>Order: { ingredients.join(', ') || 'Nothing selected' }</p>
 
-        <button onClick={e => this.handleSubmit(e)}>
+        <button onClick={e => this.handleSubmit(e)} disabled={isDisabled}>
           Submit Order
         </button>
       </form>
