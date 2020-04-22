@@ -34,4 +34,18 @@ describe("Login Page", () => {
     fireEvent.change(nameInput, { target: { value: "Lili" } });
     expect(nameInput.value).toBe("Lili");
   });
+
+  it("should be able to add ingredients", () => {
+    const store = createStore(rootReducer);
+    const { getByText } = render(
+      <Provider store={store}>
+        <OrderForm />
+      </Provider>
+    );
+    const beansBtn = getByText("beans");
+    const carnitasBtn = getByText("carnitas");
+    fireEvent.click(beansBtn);
+    fireEvent.click(carnitasBtn);
+    expect(getByText("Order: beans, carnitas")).toBeInTheDocument();
+  });
 });
