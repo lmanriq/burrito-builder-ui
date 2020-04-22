@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import { connect } from 'react-redux';
-import { setOrders } from '../../actions';
 import { getOrders } from '../../apiCalls';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
@@ -32,14 +30,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ orders }) => ({
-  orders
-});
-
-const mapDispatchToProps = dispatch => (
-  {
-    setOrders: (orders) => dispatch(setOrders(orders))
-  }
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

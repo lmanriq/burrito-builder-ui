@@ -1,5 +1,7 @@
 import React from 'react';
 import './Orders.css';
+import { connect } from 'react-redux';
+import { setOrders } from '../../actions';
 
 const Orders = props => {
   const orderEls = props.orders.map(order => {
@@ -22,4 +24,14 @@ const Orders = props => {
   )
 }
 
-export default Orders;
+const mapStateToProps = ({ orders }) => ({
+  orders
+});
+
+const mapDispatchToProps = dispatch => (
+  {
+    setOrders: (orders) => dispatch(setOrders(orders))
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);
