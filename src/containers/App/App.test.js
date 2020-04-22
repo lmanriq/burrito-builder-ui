@@ -50,8 +50,8 @@ describe("Login Page", () => {
         <App />
       </Provider>
     );
-    const beansBtn = getByText("beans");
-    const carnitasBtn = getByText("carnitas");
+    const beansBtn = getByText("beans ($1)");
+    const carnitasBtn = getByText("carnitas ($2)");
     const nameInput = getByPlaceholderText("Name");
     const submitBtn = getByText("Submit Order");
     fireEvent.change(nameInput, { target: { value: "Joe" } });
