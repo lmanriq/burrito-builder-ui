@@ -11,7 +11,7 @@ class OrderForm extends Component {
       name: "",
       ingredients: [],
       error: "",
-      orderTotal: 0
+      orderTotal: 5
     };
   }
 
@@ -27,7 +27,7 @@ class OrderForm extends Component {
     );
     if (existingIngredients.length < 2) {
       let currentTotal = this.state.orderTotal;
-      this.setState({orderTotal: currentTotal += e.target.price})
+      this.setState({orderTotal: currentTotal += parseFloat(e.target.value)})
       this.setState({ ingredients: [...ingredients, e.target.name] });
     } else {
       this.setState({
@@ -43,7 +43,13 @@ class OrderForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    postOrder({ ...this.state })
+    const {name, ingredients, orderTotal } = this.state;
+    const newOrder = {
+      name,
+      ingredients,
+      orderTotal
+    }
+    postOrder(newOrder)
       .then(data => this.props.addOrder(data))
       .catch(err => console.error(err.message));
     this.clearInputs();
@@ -73,7 +79,7 @@ class OrderForm extends Component {
         <button
           key={ingredient.name}
           name={ingredient.name}
-          price={ingredient.price}
+          value={ingredient.price}
           onClick={e => this.handleIngredientChange(e)}
         >
           {ingredient.name}
@@ -81,7 +87,7 @@ class OrderForm extends Component {
       );
     });
 
-    const { name, ingredients, error } = this.state;
+    const { name, ingredients, error, orderTotal } = this.state;
     const isDisabled = ingredients.length === 0 || name === "" ? true : false;
 
     return (
@@ -97,6 +103,7 @@ class OrderForm extends Component {
         {ingredientButtons}
 
         <p>Order: {ingredients.join(", ") || "Nothing selected"}</p>
+        <p>Order total: ${orderTotal}</p>
         {error && <p>{error}</p>}
         <button onClick={e => this.handleSubmit(e)} disabled={isDisabled}>
           Submit Order
