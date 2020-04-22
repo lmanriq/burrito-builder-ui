@@ -13,3 +13,10 @@ export const postOrder = order => {
     body: JSON.stringify(order)
   }).then(response => response.json());
 };
+
+
+export const sendDeleteRequest = id => {
+  return fetch(`http://localhost:3001/api/v1/orders/${id}`, {
+    method: "DELETE"
+  }).then(response => response.status);
+}
