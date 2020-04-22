@@ -9,7 +9,8 @@ class OrderForm extends Component {
     this.props = props;
     this.state = {
       name: '',
-      ingredients: []
+      ingredients: [],
+      error: ''
     };
   }
 
@@ -19,7 +20,18 @@ class OrderForm extends Component {
 
   handleIngredientChange = e => {
     e.preventDefault();
-    this.setState({ingredients: [...this.state.ingredients, e.target.name]});
+    const { ingredients } = this.state;
+    const existingIngredients = ingredients.filter(ingredient => ingredient === e.target.name);
+    if (existingIngredients.length < 2) {
+      this.setState({ingredients: [...ingredients, e.target.name]});
+    } else {
+      this.setState({error: 'You can have a maximum of 2 of each ingredient'});
+      setTimeout(() => {
+        this.setState({
+          error: ''
+        });
+      }, 3000);
+    }
   }
 
   handleSubmit = e => {
@@ -44,7 +56,7 @@ class OrderForm extends Component {
       )
     });
 
-    const { name, ingredients } = this.state;
+    const { name, ingredients, error } = this.state;
     const isDisabled = ingredients.length === 0 || name === '' ? true : false;
 
     return (
@@ -60,7 +72,7 @@ class OrderForm extends Component {
         { ingredientButtons }
 
         <p>Order: { ingredients.join(', ') || 'Nothing selected' }</p>
-
+        {error && <p>{error}</p>}
         <button onClick={e => this.handleSubmit(e)} disabled={isDisabled}>
           Submit Order
         </button>
