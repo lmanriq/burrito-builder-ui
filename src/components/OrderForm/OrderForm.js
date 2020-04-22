@@ -42,7 +42,7 @@ class OrderForm extends Component {
     });
 
     const { name, ingredients } = this.state;
-    const isDisabled = ingredients.length === 0 ? true : false;
+    const isDisabled = ingredients.length === 0 || name === '' ? true : false;
 
     return (
       <form>
