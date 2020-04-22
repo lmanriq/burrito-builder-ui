@@ -56,7 +56,7 @@ class OrderForm extends Component {
   };
 
   clearInputs = () => {
-    this.setState({ name: "", ingredients: [] });
+    this.setState({ name: "", ingredients: [], orderTotal: 5 });
   };
 
   render() {
