@@ -11,6 +11,10 @@ class Orders extends Component {
       .catch(err => console.error('Error fetching:', err));
   }
 
+  deleteOrder() {
+    
+  }
+
   render() {
     const { orders } = this.props;
     const orderEls = orders.map((order, index) => {
@@ -22,6 +26,7 @@ class Orders extends Component {
               return <li key={index} data-testid={`${ingredient}-${index}`}>{ingredient}</li>
             })}
           </ul>
+          <button onClick={this.deleteOrder(order.id)}>delete</button>
         </div>
       )
     });
